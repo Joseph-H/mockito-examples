@@ -21,6 +21,16 @@
 			<version>2.6</version>
 		</dependency>
 		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.2-FINAL</version>
+		</dependency>
+		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
 			<version>1.6.2</version>
@@ -60,6 +70,14 @@
 			<version>1.5.1</version>
 			<scope>test</scope>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-module-junit4</artifactId>
+			<version>1.5.1</version>
+			<scope>test</scope>
+		</dependency>
+	
 		<dependency>
 			<groupId>org.databene</groupId>
 			<artifactId>feed4junit</artifactId>
@@ -75,6 +93,11 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>4.1.3.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>4.1.0.Final</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -102,7 +125,7 @@
 					<componentProperties>
 						<persistenceunit>orderPersistenceUnit</persistenceunit>
 						<outputfilename>b2csite.ddl</outputfilename>
-						<drop>false</drop>
+						<drop>true</drop>
 						<create>true</create>
 						<export>false</export>
 						<format>true</format>

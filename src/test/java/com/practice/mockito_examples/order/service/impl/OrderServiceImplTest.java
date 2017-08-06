@@ -39,7 +39,7 @@ public class OrderServiceImplTest {
 
 	@Test
 	public void test_getOrderSummary_success() throws ServiceException, DataAccessException {
-		//Mocking example could be done like this or like above starting on line 27
+		//Mocking example could be done like this or like above starting on line 29
 //		OrderDao mockOrderDao = Mockito.mock(OrderDao.class);
 //		OrderEntityToOrderSummaryTransformer mockTransformer = Mockito.mock(OrderEntityToOrderSummaryTransformer.class);
 		
@@ -110,5 +110,4 @@ public class OrderServiceImplTest {
 		assertEquals(CUSTOMER_ID, capturedOrderEntity.getCustomerId());
 		assertEquals(orderNumber, capturedOrderEntity.getOrderNumber());
 	}
-
 }

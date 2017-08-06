@@ -19,13 +19,14 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import com.practice.mockito_examples.order.dao.OrderDao;
 import com.practice.mockito_examples.order.integration.WarehouseManagementService;
+import com.practice.mockito_examples.order.model.domain.OrderCompletionAudit;
 import com.practice.mockito_examples.order.model.entity.OrderEntity;
 import com.practice.mockito_examples.order.model.entity.OrderItemEntity;
 import com.practice.mockito_examples.order.model.message.OrderMessage;
 import com.practice.mockito_examples.order.model.transformer.OrderEntityToOrderSummaryTransformer;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(value={WarehouseManagementService.class})
+@PrepareForTest(value={WarehouseManagementService.class, OrderServiceImpl.class})
 public class OrderServiceImplWithPowerMockitoTest {
 
 	private final static long ORDER_ID = 2L;
@@ -62,9 +63,14 @@ public class OrderServiceImplWithPowerMockitoTest {
 		
 		Mockito.when(mockOrderDao.findById(ORDER_ID)).thenReturn(orderFixture);
 		
-		// Static mocking
+		// Static mocking.
+		//You need this before mocking static methods
 		PowerMockito.mockStatic(WarehouseManagementService.class);
 		PowerMockito.doNothing().when(WarehouseManagementService.class, "sendOrder", Matchers.any(OrderMessage.class));
+		
+		//when new example
+		OrderCompletionAudit auditFixture = new OrderCompletionAudit();
+		PowerMockito.whenNew(OrderCompletionAudit.class).withNoArguments().thenReturn(auditFixture);
 		
 		classUnderTest.completeOrder(ORDER_ID);
 		
@@ -78,5 +84,8 @@ public class OrderServiceImplWithPowerMockitoTest {
 		
 		assertNotNull(capturedOrderMessage);
 		assertEquals(ORDER_NUMBER, capturedOrderMessage.getOrderNumber());
+		
+		assertEquals(ORDER_NUMBER, auditFixture.getOrderNumber());
+		assertNotNull(auditFixture.getCompletionDate());
 	}
 }
